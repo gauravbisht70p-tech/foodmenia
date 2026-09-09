@@ -32,6 +32,10 @@ Foodmenia/
 │   ├── components/
 │   ├── App.jsx
 │   └── main.jsx
+|   ├── utils/
+│   ├── constants.jsx
+│   └── MockData.jsx
+|   
 ├── index.html
 ├── package.json
 ├── vite.config.js
