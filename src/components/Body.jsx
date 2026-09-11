@@ -1,35 +1,45 @@
+import Shimmer from "./Shimmer";
 import "./style.css";
-import { useState } from "react";
-import restlist from "../utils/MockData";
-const Body = () => {
-  const [restaurants, setRestaurants] = useState(restlist);
+import { useState, useEffect } from "react";
 
+const Body = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await fetch("https://dummyjson.com/recipes");
+
+    const data = await response.json();
+    setRecipes(data?.recipes);
+    console.log(data);
+  };
+
+  if (recipes.length === 0) {
+    return <Shimmer />;
+  }
   return (
     <>
       <div className="search-food">
         <button
           className="filter-btn"
           onClick={() => {
-            // Data Filter Logic
-            setRestaurants(restaurants.filter((res) => res.rating > 4));
+            setRecipes(recipes.filter((res) => res.rating > 4.6));
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
-      <div className="cards-container">
-        {restaurants.map((restaurant) => (
-          <div className="card" key={restaurant.id}>
-            <img
-              src={restaurant.image}
-              alt={restaurant.name}
-              className="food-img"
-            />
 
-            <h3>{restaurant.name}</h3>
-            <p>{restaurant.cuisines.join(", ")}</p>
-            <p>⭐ {restaurant.rating}</p>
-            <p>Price: {restaurant.price}</p>
+      <div className="cards-container">
+        {recipes.map((recipe) => (
+          <div key={recipe.id} className="card">
+            <h3>{recipe.name}</h3>
+            <img src={recipe.image} className="food-img" />
+            <p>⭐ {recipe.rating}</p>
+
             <button className="buy-btn">Buy Item</button>
           </div>
         ))}
