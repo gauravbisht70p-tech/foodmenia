@@ -6,6 +6,7 @@ A modern food discovery web application built with **React.js**. Foodmenia allow
 
 - 🍽️ Browse restaurant listings
 - ⭐ **Top Rated Restaurants** filter
+- 🔄 Shimmer UI — Displays a loading skeleton while API data is being fetched.
 - 🔍 Search and explore restaurants
 - 📱 Responsive user interface
 - ⚡ Fast and dynamic UI using React
@@ -20,7 +21,7 @@ A modern food discovery web application built with **React.js**. Foodmenia allow
 - **HTML5**
 - **CSS3**
 - **Vite**
-- **REST API**
+- **DUMMY API**
 - **Git & GitHub**
 
 ## 📂 Project Structure
@@ -34,7 +35,7 @@ Foodmenia/
 │   └── main.jsx
 |   ├── utils/
 │   ├── constants.jsx
-│   └── MockData.jsx
+│   
 |   
 ├── index.html
 ├── package.json
