@@ -26,7 +26,28 @@ li:hover{
   color:red;
 }
 
+.login-btn{
+  height:26px;
+  color:white;
+  background-color: blue;
+  border:1px;
+  border-radius: 4px;
+}
+
+.login-btn:hover{
+  background-color: rgb(79, 79, 248);
+  cursor:pointer;
+}
+
 /*Search CSS*/
+.search-food{
+  display: flex;
+}
+.search-btn{
+  padding:8px;
+  margin:10px;
+  font-size:14px;
+}
 
 .filter-btn{
   padding:8px;
@@ -88,7 +109,7 @@ li:hover{
   width: 200px;
   height:300px;
   padding: 6px;
-  background-color: #f0f0f0;
+  background-color: #e0e0e0;
   border-radius: 5px;
 }
 

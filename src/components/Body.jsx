@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 const Body = () => {
   const [recipes, setRecipes] = useState([]);
 
+  const [searchText, setSearchText] = useState("");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -17,12 +19,32 @@ const Body = () => {
     console.log(data);
   };
 
-  if (recipes.length === 0) {
-    return <Shimmer />;
-  }
-  return (
+  return recipes.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-food">
+        <div className="search-btn">
+          <input
+            type="text"
+            placeholder="Search for food..."
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              const filteredRecipes = recipes.filter((recipe) =>
+                recipe.name.toLowerCase().includes(searchText.toLowerCase()),
+              );
+
+              setRecipes(filteredRecipes);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
