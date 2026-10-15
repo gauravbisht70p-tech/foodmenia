@@ -1,10 +1,10 @@
 import Shimmer from "./Shimmer";
 import "./style.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [recipes, setRecipes] = useState([]);
-
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -13,10 +13,8 @@ const Body = () => {
 
   const fetchData = async () => {
     const response = await fetch("https://dummyjson.com/recipes");
-
     const data = await response.json();
     setRecipes(data?.recipes);
-    console.log(data);
   };
 
   return recipes.length === 0 ? (
@@ -29,22 +27,22 @@ const Body = () => {
             type="text"
             placeholder="Search for food..."
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
+            onChange={(e) => setSearchText(e.target.value)}
           />
+
           <button
+            className="search-button"
             onClick={() => {
               const filteredRecipes = recipes.filter((recipe) =>
                 recipe.name.toLowerCase().includes(searchText.toLowerCase()),
               );
-
               setRecipes(filteredRecipes);
             }}
           >
             Search
           </button>
         </div>
+
         <button
           className="filter-btn"
           onClick={() => {
@@ -58,9 +56,13 @@ const Body = () => {
       <div className="cards-container">
         {recipes.map((recipe) => (
           <div key={recipe.id} className="card">
-            <h3>{recipe.name}</h3>
-            <img src={recipe.image} className="food-img" />
-            <p>⭐ {recipe.rating}</p>
+            <Link to={`/restaurantmenu/${recipe.id}`} className="recipe-link">
+              <h3>{recipe.name}</h3>
+
+              <img src={recipe.image} className="food-img" alt={recipe.name} />
+
+              <p>⭐ {recipe.rating}</p>
+            </Link>
 
             <button className="buy-btn">Buy Item</button>
           </div>

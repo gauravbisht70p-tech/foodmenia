@@ -50,11 +50,12 @@ li:hover{
 }
 
 .filter-btn{
-  padding:8px;
+  padding:3px;
   margin:10px;
-  font-size:14px;
+  font-size:12px;
   cursor:pointer;
 }
+
 
 
 
@@ -116,3 +117,86 @@ li:hover{
 .shimmer-card:hover {
   border: 1px solid black;
 }
+
+
+/* About Page*/
+
+.tagline{
+  text-align: center;
+}
+
+.content{
+  width:300px;
+}
+
+/* Error Component*/
+
+.error{
+  text-align: center;
+}
+
+
+/*Contact */
+
+```css
+.contact {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact h1 {
+  margin-bottom: 10px;
+}
+
+.contact p {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact input,
+.contact textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.contact textarea {
+  resize: none;
+}
+
+.contact button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background: #ff5200;
+  color: white;
+  cursor: pointer;
+}
+
+.contact button:hover {
+  background: #e04800;
+}
+
+
+/* Body */
+
+.recipe-link {
+  text-decoration: none;
+  color:inherit;
+}
+
+.recipe-link h3,
+.recipe-link p {
+  text-decoration: none;
+}
+
+
