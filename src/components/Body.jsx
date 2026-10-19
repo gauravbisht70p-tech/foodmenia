@@ -1,10 +1,10 @@
 import Shimmer from "./Shimmer";
-import "./style.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Body = () => {
   const [recipes, setRecipes] = useState([]);
+  const [allRecipes, setAllRecipes] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -14,61 +14,84 @@ const Body = () => {
   const fetchData = async () => {
     const response = await fetch("https://dummyjson.com/recipes");
     const data = await response.json();
-    setRecipes(data?.recipes);
+    setRecipes(data.recipes);
+    setAllRecipes(data.recipes);
+  };
+
+  const handleSearch = () => {
+    const filteredRecipes = allRecipes.filter((recipe) =>
+      recipe.name.toLowerCase().includes(searchText.toLowerCase()),
+    );
+    setRecipes(filteredRecipes);
   };
 
   return recipes.length === 0 ? (
     <Shimmer />
   ) : (
-    <>
-      <div className="search-food">
-        <div className="search-btn">
-          <input
-            type="text"
-            placeholder="Search for food..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-
-          <button
-            className="search-button"
-            onClick={() => {
-              const filteredRecipes = recipes.filter((recipe) =>
-                recipe.name.toLowerCase().includes(searchText.toLowerCase()),
-              );
-              setRecipes(filteredRecipes);
-            }}
-          >
-            Search
-          </button>
-        </div>
+    <div className="mx-auto max-w-7xl p-4">
+      {/* Search */}
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search for food..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="rounded border border-gray-300 px-4 py-2"
+        />
 
         <button
-          className="filter-btn"
-          onClick={() => {
-            setRecipes(recipes.filter((res) => res.rating > 4.6));
-          }}
+          onClick={handleSearch}
+          className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
         >
-          Top Rated Restaurants
+          Search
+        </button>
+
+        <button
+          onClick={() =>
+            setRecipes(allRecipes.filter((recipe) => recipe.rating > 4.6))
+          }
+          className="rounded border border-gray-300 px-4 py-2 hover:bg-gray-100"
+        >
+          Top Rated
+        </button>
+
+        <button
+          onClick={() => {
+            setRecipes(allRecipes);
+            setSearchText("");
+          }}
+          className="rounded border border-gray-300 px-4 py-2 hover:bg-gray-100"
+        >
+          Reset
         </button>
       </div>
 
-      <div className="cards-container">
+      {/* Recipe Cards */}
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {recipes.map((recipe) => (
-          <div key={recipe.id} className="card">
-            <Link to={`/restaurantmenu/${recipe.id}`} className="recipe-link">
-              <h3>{recipe.name}</h3>
+          <div
+            key={recipe.id}
+            className="rounded-lg border border-gray-200 p-3"
+          >
+            <Link to={`/restaurantmenu/${recipe.id}`}>
+              <img
+                src={recipe.image}
+                alt={recipe.name}
+                className="h-44 w-full rounded object-cover"
+              />
 
-              <img src={recipe.image} className="food-img" alt={recipe.name} />
+              <h3 className="mt-3 font-semibold">{recipe.name}</h3>
 
-              <p>⭐ {recipe.rating}</p>
+              <p className="mt-1 text-sm text-gray-600">⭐ {recipe.rating}</p>
             </Link>
 
-            <button className="buy-btn">Buy Item</button>
+            <button className="mt-3 w-full rounded bg-orange-500 px-3 py-2 text-white hover:bg-orange-600">
+              Buy Item
+            </button>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
